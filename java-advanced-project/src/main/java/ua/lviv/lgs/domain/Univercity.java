@@ -1,27 +1,39 @@
 package ua.lviv.lgs.domain;
 
+import javax.persistence.*;
+
 import java.util.Set;
 
+@Entity
+@Table
 public class Univercity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column
     private String name;
+
+    @Column
     private Long countOfStudents;
-    private Set<Faculty> faculties;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Univercity() {
     }
 
-    public Univercity(String name, Long countOfStudents, Set<Faculty> faculties) {
+    public Univercity(String name, Long countOfStudents) {
         this.name = name;
         this.countOfStudents = countOfStudents;
-        this.faculties = faculties;
     }
 
-    public Univercity(Integer id, String name, Long countOfStudents, Set<Faculty> faculties) {
+    public Univercity(Integer id, String name, Long countOfStudents) {
         this.id = id;
         this.name = name;
         this.countOfStudents = countOfStudents;
-        this.faculties = faculties;
     }
 
     public Integer getId() {
@@ -48,11 +60,4 @@ public class Univercity {
         this.countOfStudents = countOfStudents;
     }
 
-    public Set<Faculty> getFaculties() {
-        return faculties;
-    }
-
-    public void setFaculties(Set<Faculty> faculties) {
-        this.faculties = faculties;
-    }
 }
