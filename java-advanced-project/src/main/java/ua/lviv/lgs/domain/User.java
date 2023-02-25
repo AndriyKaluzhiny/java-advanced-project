@@ -2,8 +2,11 @@ package ua.lviv.lgs.domain;
 
 import javax.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import static javax.persistence.CascadeType.MERGE;
 
 @Entity
 @Table
@@ -22,8 +25,8 @@ public class User {
     @Column
     private int enabled;
 
-    @Column
-    private String role;
+    @OneToMany(cascade = {CascadeType.ALL, CascadeType.PERSIST, MERGE}, mappedBy = "user")
+    private Set<Roles> role;
 
     @Column
     private String email;
@@ -31,11 +34,14 @@ public class User {
     @Column
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.ALL, CascadeType.MERGE}, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.ALL, CascadeType.PERSIST, MERGE}, mappedBy = "userId")
+    private List<Subject> subjects;
+
+    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.ALL, MERGE}, mappedBy = "user")
     private Set<Univercity> univercities;
 
 
-    public User(Integer id, String firstName, String lastName, int enabled, String role, String password, String email) {
+    public User(Integer id, String firstName, String lastName, int enabled, Set<Roles> role, String password, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -45,7 +51,7 @@ public class User {
         this.email = email;
     }
 
-    public User(String firstName, String lastName, int enabled, String role, String password, String email) {
+    public User(String firstName, String lastName, int enabled, Set<Roles> role, String password, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.enabled = enabled;
@@ -100,11 +106,11 @@ public class User {
         this.enabled = enabled;
     }
 
-    public String getRole() {
+    public Set<Roles> getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Set<Roles> role) {
         this.role = role;
     }
 
@@ -130,6 +136,14 @@ public class User {
 
     public void setUnivercities(Set<Univercity> univercities) {
         this.univercities = univercities;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
     }
 
     @Override

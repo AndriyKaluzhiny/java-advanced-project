@@ -22,7 +22,7 @@
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="marks">My marks</a>
+            <a class="nav-link" href="marks?userName=${pageContext.request.userPrincipal.name}">My marks</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/universities">Universities</a>

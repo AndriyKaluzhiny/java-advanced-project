@@ -23,6 +23,12 @@ public class Subject {
     @ManyToMany(mappedBy = "subjectSet")
     private Set<Faculty> faculties = new HashSet<Faculty>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user", referencedColumnName = "id")
+    private User userId;
+
+
+
     public Subject() {
     }
 
@@ -71,16 +77,11 @@ public class Subject {
         this.faculties = faculties;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Subject subject = (Subject) o;
-        return points == subject.points && Objects.equals(id, subject.id) && Objects.equals(name, subject.name) && Objects.equals(faculties, subject.faculties);
+    public User getUserId() {
+        return userId;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, points, faculties);
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 }

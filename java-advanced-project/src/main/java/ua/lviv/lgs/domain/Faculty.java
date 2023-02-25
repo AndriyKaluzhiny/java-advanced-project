@@ -24,6 +24,10 @@ public class Faculty {
     @Column
     private int minimalPoints;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "university_id",referencedColumnName = "id")
+    private Univercity univercity;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(joinColumns = {@JoinColumn(name = "faculty_id")}, inverseJoinColumns = @JoinColumn(name = "subject_id"))
     private Set<Subject> subjectSet = new HashSet<Subject>();
@@ -42,6 +46,12 @@ public class Faculty {
         this.countOfStudents = countOfStudents;
         this.minimalPoints = minimalPoints;
         this.subjectSet = subjectSet;
+    }
+
+    public Faculty(String name, int countOfStudents, int minimalPoints) {
+        this.name = name;
+        this.countOfStudents = countOfStudents;
+        this.minimalPoints = minimalPoints;
     }
 
     public Faculty() {
@@ -85,6 +95,14 @@ public class Faculty {
 
     public void setSubjectSet(Set<Subject> subjectSet) {
         this.subjectSet = subjectSet;
+    }
+
+    public void setUnivercity(Univercity univercity) {
+        this.univercity = univercity;
+    }
+
+    public Univercity getUnivercity() {
+        return univercity;
     }
 
     @Override

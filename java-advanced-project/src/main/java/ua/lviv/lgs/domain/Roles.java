@@ -15,18 +15,19 @@ public class Roles {
     @Column(name = "role_name")
     private String name;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private User user;
 
     public Roles() {
     }
 
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {
@@ -50,11 +51,13 @@ public class Roles {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Roles roles = (Roles) o;
-        return Objects.equals(id, roles.id) && Objects.equals(name, roles.name) && Objects.equals(userId, roles.userId);
+        return Objects.equals(id, roles.id) && Objects.equals(name, roles.name) && Objects.equals(user, roles.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, userId);
+        return Objects.hash(id, name, user);
     }
+
+
 }
