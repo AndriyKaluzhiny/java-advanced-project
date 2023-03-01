@@ -25,8 +25,8 @@ public class User {
     @Column
     private int enabled;
 
-    @OneToMany(cascade = {CascadeType.ALL, CascadeType.PERSIST, MERGE}, mappedBy = "user")
-    private Set<Roles> role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column
     private String email;
@@ -40,8 +40,14 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.ALL, MERGE}, mappedBy = "user")
     private Set<Univercity> univercities;
 
+    @Lob
+    private byte[] file;
 
-    public User(Integer id, String firstName, String lastName, int enabled, Set<Roles> role, String password, String email) {
+    @Lob
+    private String encodedImage;
+
+
+    public User(Integer id, String firstName, String lastName, int enabled, Role role, String password, String email, String encodedImage) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -49,9 +55,10 @@ public class User {
         this.role = role;
         this.password = password;
         this.email = email;
+        this.encodedImage = encodedImage;
     }
 
-    public User(String firstName, String lastName, int enabled, Set<Roles> role, String password, String email) {
+    public User(String firstName, String lastName, int enabled, Role role, String password, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.enabled = enabled;
@@ -69,6 +76,7 @@ public class User {
         this.password = user.password;
         this.univercities = user.univercities;
         this.enabled = user.enabled;
+        this.encodedImage = user.encodedImage;
     }
 
     public User() {
@@ -106,11 +114,11 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Set<Roles> getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Set<Roles> role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -144,6 +152,22 @@ public class User {
 
     public List<Subject> getSubjects() {
         return subjects;
+    }
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    public String getEncodedImage() {
+        return encodedImage;
+    }
+
+    public void setEncodedImage(String encodedImage) {
+        this.encodedImage = encodedImage;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
     }
 
     @Override

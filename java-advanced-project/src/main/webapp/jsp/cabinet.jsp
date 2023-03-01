@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,6 +37,37 @@
         </ul>
       </div>
     </nav>
+
+
+
+    <div class="container d-flex justify-content-center align-items-center">
+             <div class="card py-4">
+
+                <div class="d-flex justify-content-center align-items-center">
+                  <div class="round-image">
+                    <img src="data:image/jpg;base64, <sec:authentication property='principal.encodedImage' />" alt="avatar" class="rounded-circle" width="97">
+                  </div>
+                </div>
+
+                <div class="text-center">
+
+                  <h4 class="mt-3"><sec:authentication property="principal.firstName" /> <sec:authentication property="principal.lastName"/></h4>
+                  <span><sec:authentication property="principal.role" /></span>
+
+                  <div class="px-5">
+                    <p class="content"> It is your cabinet </p>
+
+                    <a href="/marks?userName=${pageContext.request.userPrincipal.name}"><button class="btn btn-primary follow">Marks</button></a>
+                  </div>
+
+
+
+
+                </div>
+
+             </div>
+              </div>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

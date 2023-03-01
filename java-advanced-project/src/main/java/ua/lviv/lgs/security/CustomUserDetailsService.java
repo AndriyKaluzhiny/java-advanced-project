@@ -6,34 +6,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ua.lviv.lgs.dao.UserRepository;
-import ua.lviv.lgs.dao.UserRoleRepository;
 import ua.lviv.lgs.domain.User;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
-    private final UserRoleRepository userRoleRepository;
-
-
     @Autowired
-    public CustomUserDetailsService(UserRepository userRepository, UserRoleRepository userRoleRepository) {
-        this.userRepository = userRepository;
-        this.userRoleRepository = userRoleRepository;
-    }
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByEmail(username);
+        Optional<User> userOp = userRepository.findByEmail(username);
 
-        if(user.isPresent()) {
-            List<String> userRoles = userRoleRepository.findRoleByUserName(username);
-            return new CustomUserDetails(user.get(), userRoles);
+        if(userOp.isPresent()) {
+            User user = userOp.get();
+            return new CustomUserDetails(user, Collections.singletonList(user.getRole().toString()));
         } else {
-            throw new UsernameNotFoundException("username " + user.get().getEmail() + "not found!");
+            throw new UsernameNotFoundException("username " + username + "not found!");
         }
     }
 }

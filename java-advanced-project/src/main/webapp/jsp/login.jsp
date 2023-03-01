@@ -27,7 +27,7 @@
       <div class="row h-100 justify-content-center align-items-center">
           <div class="col-10 col-md-8 col-lg-6">
               <!-- Form -->
-              <form class="form-example" action="<c:url value='/security_check' />" method="post">
+              <form class="form-example" action="<c:url value='/security_check' />" method="POST">
                     <h1>Please, Login</h1>
                     <!-- Input fields -->
                     <div class="form-group">

@@ -6,12 +6,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import ua.lviv.lgs.dao.SubjectRepository;
 import ua.lviv.lgs.dao.UserRepository;
-import ua.lviv.lgs.domain.Roles;
 import ua.lviv.lgs.domain.Subject;
 import ua.lviv.lgs.domain.User;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -25,16 +26,12 @@ public class UserService {
     private SubjectRepository subjectRepository;
 
 
-    public void save(@ModelAttribute(name = "userForm") User user) {
-        user.setPassword(bcryptpasswordEncoder.encode(user.getPassword()));
-        Set<Roles> roles = new HashSet<>();
-        Roles role = new Roles();
-
-        role.setName("USER");
-        roles.add(role);
-
-        user.setRole(roles);
-        userRepository.save(user);
+    public void save(@RequestParam("email") String email,
+                     @RequestParam("firstName") String firstName,
+                     @RequestParam("lastName") String lastName,
+                     @RequestParam("password") String password,
+                     @RequestParam("file")MultipartFile file) throws IOException {
+        userRepository.save(UserDTOHelper.createUser(firstName, lastName, email, bcryptpasswordEncoder.encode(password), file));
     }
 
     public Integer findIdByUserName(@RequestParam("userName") String name) {
@@ -50,10 +47,10 @@ public class UserService {
         return subjects;
     }
 
-    public void save(@ModelAttribute("markForm") Subject subject) {
-        subject.setFaculties(null);
-        subjectRepository.save(subject);
-    }
+//    public void save(@ModelAttribute("markForm") Subject subject) {
+//        subject.setFaculties(null);
+//        subjectRepository.save(subject);
+//    }
 
 
 }

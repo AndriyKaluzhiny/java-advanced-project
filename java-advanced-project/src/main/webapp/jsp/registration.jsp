@@ -29,33 +29,28 @@
           <div class="row h-100 justify-content-center align-items-center">
               <div class="col-10 col-md-8 col-lg-6">
                   <!-- Form -->
-                  <form:form modelAttribute="userForm" class="form-example" method="post">
+                  <form:form action="/sign-in_processing" enctype="multipart/form-data" class="form-example" method="post">
                         <h1>Please, Login</h1>
                         <!-- Input fields -->
                         <div class="form-group">
                             <label for="firstName">First Name:</label>
-                            <spring:bind path="firstName">
-                                <form:input path="firstName" type="text" class="form-control username" id="FirstName" placeholder="First Name..." name="firstName"></form:input>
-                            </spring:bind>
+                            <input type="text" class="form-control username" id="FirstName" placeholder="First Name..." name="firstName"></input>
                         </div>
                         <div class="form-group">
                             <label for="lastName">Last Name:</label>
-                             <spring:bind path="lastName">
-                                <form:input path="lastName" type="text" class="form-control username" id="LastName" placeholder="Last Name..." name="lastName"></form:input>
-                             </spring:bind>
+                            <input type="text" class="form-control username" id="LastName" placeholder="Last Name..." name="lastName"></input>
                         </div>
                         <div class="form-group">
-                            <label for="username">Username:</label>
-
-                            <spring:bind path="email">
-                                <form:input path="email" type="text" class="form-control username" id="username" placeholder="Username..." name="userName"></form:input>
-                            </spring:bind>
+                            <label for="email">email:</label>
+                            <input type="text" class="form-control username" id="username" placeholder="Email..." name="email"></input>
                         </div>
                         <div class="form-group">
-                            <label for="password">Password:</label>
-                            <spring:bind path="password">
-                                <form:input path="password" type="password" class="form-control password" id="password" placeholder="Password..." name="password"></form:input>
-                            </spring:bind>
+                             <label for="password">Password:</label>
+                             <input type="password" class="form-control username" id="password" placeholder="password..." name="password"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="file">Image:</label>
+                            <input type="file" class="form-control password" id="file" name="file"></input>
                         </div>
 
                         <span class="form-check-label">Already have an account? <a href="/login">Login here!</a></span>
