@@ -21,6 +21,9 @@ public class Offer {
     private String email;
 
     @Column
+    private Integer summary;
+
+    @Column
     boolean applyDeny;
 
 
@@ -61,5 +64,13 @@ public class Offer {
 
     public void setUniversityName(String universityName) {
         this.universityName = universityName;
+    }
+
+    public Integer getSummary() {
+        return summary;
+    }
+
+    public void setSummary(Integer summary) {
+        this.summary = summary;
     }
 }

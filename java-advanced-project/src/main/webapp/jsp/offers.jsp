@@ -47,7 +47,7 @@
               <div class="card mr-2" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">${currentOffer.userName}</h5>
-                  <h1 class="card-title"><a href="/marks?userName=${currentOffer.email}">Look marks</a></h1>
+                  <h1 class="card-text">Summary mark: ${currentOffer.summary}</h1>
                   <a href="/accept?offerId=${currentOffer.id}"><button type="button" class="btn btn-primary">Accept</button></a>
                   <a href="/deny?offerId=${currentOffer.id}"><button type="button" class="btn btn-danger">Deny</button></a>
                 </div>

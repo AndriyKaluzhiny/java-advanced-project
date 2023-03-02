@@ -13,6 +13,7 @@ import ua.lviv.lgs.dao.*;
 import ua.lviv.lgs.domain.*;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Controller
 public class MarksController {
@@ -72,6 +73,17 @@ public class MarksController {
         offer.setUserName(user.getFirstName());
         offer.setEmail(user.getEmail());
         offer.setUniversityName(univercity.getName());
+
+        Integer summary = 0;
+
+        List<Subject> subjectList = user.getSubjects();
+
+        for (Subject s : subjectList) {
+            summary+=s.getPoints();
+        }
+
+        offer.setSummary(summary);
+
         offerRepository.save(offer);
 
         return new ModelAndView("redirect:/universityPage?id=" + univercity.getId());
