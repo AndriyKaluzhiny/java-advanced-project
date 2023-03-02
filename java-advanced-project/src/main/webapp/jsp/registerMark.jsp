@@ -67,6 +67,10 @@
                             </spring:bind>
                         </div>
 
+                        <c:if test="${param.error == true}">
+                            <div class="alert-danger">Your mark mus`nt be more than 200 or less than 0!</div>
+                        </c:if>
+
                         <input type="hidden" value="${pageContext.request.userPrincipal.name}" id="userName" name="userName"></input>
 
 

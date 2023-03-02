@@ -3,8 +3,6 @@ package ua.lviv.lgs.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,6 +55,13 @@ public class MarksController {
         subject.setName(name);
         subject.setPoints(points);
 
+        if (points > 200 || points < 0) {
+            ModelAndView modelAndView = new ModelAndView("redirect:/registerMark?userName=" + userName);
+            modelAndView.addObject("error", true);
+
+            return modelAndView;
+        }
+
         subjectRepository.save(subject);
 
         return new ModelAndView("redirect:/");
@@ -65,6 +70,9 @@ public class MarksController {
     @RequestMapping(value = "/sendMarks", method = RequestMethod.GET)
     public ModelAndView sendMarks(@RequestParam("email") String email,
                                   @RequestParam("facultyId") Integer Fid) {
+
+        ModelAndView modelAndView = new ModelAndView();
+
         Offer offer = new Offer();
         User user = userRepository.findByEmail(email).get();
         Faculty faculty = facultyRepository.findById(Fid).get();
@@ -82,10 +90,26 @@ public class MarksController {
             summary+=s.getPoints();
         }
 
+        if (summary < faculty.getMinimalPoints()) {
+            modelAndView.addObject("error", true);
+            modelAndView.setViewName("redirect:/universityPage?id=" + univercity.getId());
+
+            return modelAndView;
+        }
+
+        if (offerRepository.findByUserNameAndUniversityName(user.getEmail(), univercity.getName()).isPresent()) {
+            modelAndView.addObject("alreadyExists", true);
+            modelAndView.setViewName("redirect:/universityPage?id=" + univercity.getId());
+
+            return modelAndView;
+        }
+
         offer.setSummary(summary);
 
         offerRepository.save(offer);
 
-        return new ModelAndView("redirect:/universityPage?id=" + univercity.getId());
+        modelAndView.setViewName("redirect:/universityPage?id=" + univercity.getId());
+
+        return modelAndView;
     }
 }

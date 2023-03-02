@@ -108,6 +108,12 @@
                                 <td>${currentFaculty.name}</td>
                                 <td>${currentFaculty.minimalPoints}</td>
                                 <td><a href="/sendMarks?email=${pageContext.request.userPrincipal.name}&universityId=${data.id}&facultyId=${currentFaculty.id}&minPoints=${currentFaculty.minimalPoints}">Send Marks</a></td>
+                                <c:if test="${param.error == true}">
+                                    <div class="alert-danger">Your summary mark is less than required!</div>
+                                </c:if>
+                                <c:if test="${param.alreadyExists == true}">
+                                    <div class="alert-danger">Your offer to be applied to this university has been already sent!</div>
+                                </c:if>
                             </tr>
                             </c:forEach>
                         </tbody>
