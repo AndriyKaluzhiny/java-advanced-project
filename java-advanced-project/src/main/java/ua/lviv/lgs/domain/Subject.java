@@ -84,4 +84,15 @@ public class Subject {
     public void setUserId(User userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", points=" + points +
+                ", faculties=" + faculties +
+                ", userId=" + userId +
+                '}';
+    }
 }

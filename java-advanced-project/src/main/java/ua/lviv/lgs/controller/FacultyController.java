@@ -1,5 +1,7 @@
 package ua.lviv.lgs.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,8 @@ public class FacultyController {
     @Autowired
     private UnivercityRepository univercityRepository;
 
+    Logger logger = LoggerFactory.getLogger(FacultyController.class);
+
     @RequestMapping(value = "/addFaculty", method = RequestMethod.GET)
     public ModelAndView init(@RequestParam("universityId") Integer id,Model model) {
         ModelAndView mav = new ModelAndView("addFaculty");
@@ -51,12 +55,14 @@ public class FacultyController {
                 faculty.setMinimalPoints(Integer.parseInt(minPointsArr[i].trim()));
                 faculty.setUnivercity(univercityRepository.findById(id).get());
 
+                logger.info("Save faculty" + faculty.toString());
+
                 facultyRepository.save(faculty);
             }
         }
 
 
-        return new ModelAndView("redirect:/univer");
+        return new ModelAndView("redirect:/universityPage?id=" + id);
     }
 
 }

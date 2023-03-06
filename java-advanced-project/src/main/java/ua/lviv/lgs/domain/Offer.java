@@ -73,4 +73,16 @@ public class Offer {
     public void setSummary(Integer summary) {
         this.summary = summary;
     }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "id=" + id +
+                ", universityName='" + universityName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", summary=" + summary +
+                ", applyDeny=" + applyDeny +
+                '}';
+    }
 }

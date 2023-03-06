@@ -1,5 +1,7 @@
 package ua.lviv.lgs.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,7 @@ public class OfferController {
     @Autowired
     private UserRepository userRepository;
 
+    Logger logger = LoggerFactory.getLogger(OfferController.class);
 
     @RequestMapping(value = "/offers", method = RequestMethod.GET)
     public ModelAndView offers(@RequestParam(name = "id") Integer id) {
@@ -46,6 +49,8 @@ public class OfferController {
         user.setUnivercities(Set.of(univercity));
         univercity.setCountOfStudents(univercity.getCountOfStudents()+1L);
 
+        logger.info("Accept offer("+"id=" + id+ ")");
+
         offerRepository.delete(offer);
         return new ModelAndView("redirect:/offers?id=" + univercity.getId());
     }
@@ -55,6 +60,8 @@ public class OfferController {
         Offer offer = offerRepository.findById(id).get();
         User user = userRepository.findByEmail(offer.getEmail()).get();
         Univercity univercity = univercityRepository.findAllByName(offer.getUniversityName()).get();
+
+        logger.info("Deny offer("+"id=" + id+ ")");
 
         offerRepository.delete(offer);
         return new ModelAndView("redirect:/offers?id=" + univercity.getId());

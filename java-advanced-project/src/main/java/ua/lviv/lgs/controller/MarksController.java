@@ -1,5 +1,7 @@
 package ua.lviv.lgs.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,8 @@ public class MarksController {
     private UnivercityRepository univercityRepository;
     @Autowired
     private OfferRepository offerRepository;
+
+    Logger logger = LoggerFactory.getLogger(MarksController.class);
 
 
     @RequestMapping(value = "/marks", method = RequestMethod.GET)
@@ -62,6 +66,8 @@ public class MarksController {
             return modelAndView;
         }
 
+
+        logger.info("Save subject" + subject.toString());
         subjectRepository.save(subject);
 
         return new ModelAndView("redirect:/");
@@ -105,6 +111,8 @@ public class MarksController {
         }
 
         offer.setSummary(summary);
+
+        logger.info("Save and send offer to university");
 
         offerRepository.save(offer);
 
