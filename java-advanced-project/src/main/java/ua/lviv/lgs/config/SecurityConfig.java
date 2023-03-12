@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/addUniversity").hasAuthority("ADMIN")
                 .antMatchers("/offers").hasAuthority("ADMIN")
                 .anyRequest().permitAll()
-                .and().formLogin().loginPage("/login").permitAll().loginProcessingUrl("/security_check")
+                .and().formLogin().loginPage("/login?lang=en").permitAll().loginProcessingUrl("/security_check")
                 .passwordParameter("password").usernameParameter("userName")
                 .and().logout().logoutSuccessUrl("/login?logout")
                 .and().exceptionHandling().accessDeniedPage("/403")

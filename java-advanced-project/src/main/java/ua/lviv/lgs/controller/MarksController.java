@@ -50,7 +50,8 @@ public class MarksController {
     @RequestMapping(value = "/save", method = RequestMethod.GET)
     public ModelAndView save(@RequestParam("name") String name,
                              @RequestParam("points") Integer points,
-                             @RequestParam("userName") String userName) throws Exception {
+                             @RequestParam("userName") String userName,
+                             @RequestParam String lang) throws Exception {
 
         User user = userRepository.findByEmail(userName).get();
 
@@ -62,6 +63,7 @@ public class MarksController {
         if (points > 200 || points < 0) {
             ModelAndView modelAndView = new ModelAndView("redirect:/registerMark?userName=" + userName);
             modelAndView.addObject("error", true);
+            modelAndView.addObject("lang", lang);
 
             return modelAndView;
         }
@@ -70,12 +72,13 @@ public class MarksController {
         logger.info("Save subject" + subject.toString());
         subjectRepository.save(subject);
 
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/?lang=" + lang);
     }
 
     @RequestMapping(value = "/sendMarks", method = RequestMethod.GET)
     public ModelAndView sendMarks(@RequestParam("email") String email,
-                                  @RequestParam("facultyId") Integer Fid) {
+                                  @RequestParam("facultyId") Integer Fid,
+                                  @RequestParam String lang) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -98,6 +101,7 @@ public class MarksController {
 
         if (summary < faculty.getMinimalPoints()) {
             modelAndView.addObject("error", true);
+            modelAndView.addObject("lang", lang);
             modelAndView.setViewName("redirect:/universityPage?id=" + univercity.getId());
 
             return modelAndView;
@@ -105,6 +109,7 @@ public class MarksController {
 
         if (offerRepository.findByUserNameAndUniversityName(user.getEmail(), univercity.getName()).isPresent()) {
             modelAndView.addObject("alreadyExists", true);
+            modelAndView.addObject("lang", lang);
             modelAndView.setViewName("redirect:/universityPage?id=" + univercity.getId());
 
             return modelAndView;

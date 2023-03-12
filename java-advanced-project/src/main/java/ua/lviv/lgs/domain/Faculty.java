@@ -117,16 +117,4 @@ public class Faculty {
     public int hashCode() {
         return Objects.hash(id, name, countOfStudents, minimalPoints, subjectSet);
     }
-
-    @Override
-    public String toString() {
-        return "Faculty{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", countOfStudents=" + countOfStudents +
-                ", minimalPoints=" + minimalPoints +
-                ", univercity=" + univercity +
-                ", subjectSet=" + subjectSet +
-                '}';
-    }
 }

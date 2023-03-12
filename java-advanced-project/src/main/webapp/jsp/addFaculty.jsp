@@ -13,7 +13,6 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
     <title>Login</title>
 
   </head>
@@ -52,21 +51,21 @@
               <div class="col-10 col-md-8 col-lg-6">
                   <!-- Form -->
                   <form action="/addFacultyProcessing" class="form-example" method="GET">
-                        <h1>Enter the information about Faculty</h1>
+                        <h1><spring:message code="addFaculty.title" /></h1>
                         <!-- Input fields -->
                         <div class="form-group">
-                            <label for="name">Faculty name:</label>
-                                <input type="text" class="form-control username" id="name" placeholder="Name ..." name="name"></input>
+                            <label for="name"><spring:message code="addFaculty.name" />:</label>
+                                <input type="text" class="form-control username" id="name" placeholder="<spring:message code='addFaculty.name' />" name="name"></input>
                         </div>
                         <div class="form-group">
-                            <label for="minPoints">Minimal Points:</label>
-                                <input type="text" class="form-control username" id="minPoints" placeholder="It must be in same order as faculties names..." name="minPoints"></input>
+                            <label for="minPoints"><spring:message code="addFaculty.minPoints" />:</label>
+                                <input type="text" class="form-control username" id="minPoints" placeholder="<spring:message code='addFaculty.placeholder' />" name="minPoints"></input>
                         </div>
 
                         <input type="hidden" class="form-control username" id="minPoints" placeholder="It must be in same order as faculties names..." name="universityId" value="${data.id}"></input>
 
 
-                        <button type="submit" class="btn btn-primary btn-customized mt-4" >Add new university</button>
+                        <button type="submit" class="btn btn-primary btn-customized mt-4" ><spring:message code="addFaculty.button" /></button>
 
 
                     </form>

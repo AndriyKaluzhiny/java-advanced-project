@@ -1,6 +1,11 @@
 package ua.lviv.lgs.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +20,7 @@ import ua.lviv.lgs.dao.UserRepository;
 import ua.lviv.lgs.domain.User;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -24,34 +30,31 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = "/sign-in", method = RequestMethod.GET)
-    public ModelAndView registration() {
-        return new ModelAndView("registration");
-    }
-
-
-    @RequestMapping(value = "/sign-in_processing", method = RequestMethod.POST)
-    public String registration(@RequestParam("email") String email,
-                               @RequestParam("firstName") String firstName,
-                               @RequestParam("lastName") String lastName,
-                               @RequestParam("password") String password,
-                               @RequestParam("file") MultipartFile file) throws IOException {
-        userService.save(email, firstName, lastName, password, file);
-
-        return "redirect:/";
-    }
-
-    @RequestMapping(value = "/security_check", method = RequestMethod.POST)
-    public ModelAndView directToUserProfile(@RequestParam("userName") String userName) {
-        ModelAndView modelAndView = new ModelAndView("cabinet");
-
-        modelAndView.addObject("currentUser", userRepository.findByEmail(userName).get());
-        System.out.println(userRepository.findByEmail(userName).get().toString() + 123);
+    @RequestMapping(value="/login", method = RequestMethod.GET)
+    public ModelAndView setLang(@RequestParam("lang") String lang) {
+        ModelAndView modelAndView = new ModelAndView("login");
+        modelAndView.addObject("lang", lang);
 
         return modelAndView;
     }
 
+    @RequestMapping(value = "/sign-in", method = RequestMethod.GET)
+    public ModelAndView registration(@RequestParam String lang) {
+        ModelAndView modelAndView = new ModelAndView("registration");
+        modelAndView.addObject("lang", lang);
 
+        return modelAndView;
+    }
 
-
+//    @RequestMapping(value = "/sign-in_processing", method = RequestMethod.POST)
+//    public String registration(@RequestParam("email") String email,
+//                               @RequestParam("firstName") String firstName,
+//                               @RequestParam("lastName") String lastName,
+//                               @RequestParam("password") String password,
+//                               @RequestParam("file") MultipartFile file,
+//                               @RequestParam("lang") String lang) throws IOException {
+//        userService.save(email, firstName, lastName, password, file);
+//
+//        return "redirect:/?lang=" + lang;
+//    }
 }

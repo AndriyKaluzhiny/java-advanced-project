@@ -4,12 +4,35 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Cabinet</title>
+    <script
+          src="https://code.jquery.com/jquery-3.6.3.min.js"
+          integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+          crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<script type="text/javascript">
+    	$(document).ready(function() {
+    		var selItem = localStorage.getItem("locales");
+    		$('#locales').val(selItem ? selItem : 'en');
+    		$("#locales").change(function() {
+    			var selectedOption = $('#locales').val();
+    			if (selectedOption) {
+    				window.location.replace('?lang=' + selectedOption);
+    				localStorage.setItem("locales", selectedOption);
+    			}
+    		});
+    	});
+    </script>
+
 </head>
 <body class="security-app">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -20,21 +43,31 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/?lang=${param.lang}"><spring:message code="nav.home" /> <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="marks?userName=${pageContext.request.userPrincipal.name}">My marks</a>
+            <a class="nav-link" href="marks?userName=${pageContext.request.userPrincipal.name}&lang=${param.lang}"><spring:message code="nav.marks" /></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/universities">Universities</a>
+            <a class="nav-link" href="/universities?lang=${param.lang}"><spring:message code="nav.universities" /></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#"></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="/login?logout">Log Out</a>
+            <a class="nav-link disabled" href="/login?logout&lang=${lang}"><spring:message code="nav.logout" /></a>
           </li>
         </ul>
+      </div>
+
+      <div>
+        <fieldset>
+            <label><spring:message code="login.choose_language" /></label>
+            <select id="locales">
+                <option value="en"><spring:message code='login.english'/></option>
+                <option value="ua"><spring:message code='login.ukrainian'/></option>
+            </select>
+        </fieldset>
       </div>
     </nav>
 
@@ -55,9 +88,9 @@
                   <span><sec:authentication property="principal.role" /></span>
 
                   <div class="px-5">
-                    <p class="content"> It is your cabinet </p>
+                    <p class="content"><spring:message code="profile.desc" /></p>
 
-                    <a href="/marks?userName=${pageContext.request.userPrincipal.name}"><button class="btn btn-primary follow">Marks</button></a>
+                    <a href="/marks?userName=${pageContext.request.userPrincipal.name}"><button class="btn btn-primary follow"><spring:message code="profile.marks" /></button></a>
                   </div>
 
 

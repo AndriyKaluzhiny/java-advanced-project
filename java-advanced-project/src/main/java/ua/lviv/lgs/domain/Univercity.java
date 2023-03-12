@@ -112,17 +112,4 @@ public class Univercity {
     public User getUser() {
         return user;
     }
-
-    @Override
-    public String toString() {
-        return "Univercity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", countOfStudents=" + countOfStudents +
-                ", description='" + description + '\'' +
-                ", rating=" + rating +
-                ", user=" + user +
-                ", faculties=" + faculties +
-                '}';
-    }
 }

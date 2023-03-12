@@ -10,7 +10,24 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script
+                  src="https://code.jquery.com/jquery-3.6.3.min.js"
+                  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+                  crossorigin="anonymous"></script>
 
+        <script type="text/javascript">
+            	$(document).ready(function() {
+            		var selItem = localStorage.getItem("locales");
+            		$('#locales').val(selItem ? selItem : 'en');
+            		$("#locales").change(function() {
+            			var selectedOption = $('#locales').val();
+            			if (selectedOption) {
+            				window.location.replace('?lang=' + selectedOption);
+            				localStorage.setItem("locales", selectedOption);
+            			}
+            		});
+            	});
+            </script>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -52,21 +69,21 @@
               <div class="col-10 col-md-8 col-lg-6">
                   <!-- Form -->
                   <form:form action="/addProcessing" class="form-example" method="GET">
-                        <h1>Enter the information about university</h1>
+                        <h1><spring:message code="addUniversity.title" /></h1>
                         <!-- Input fields -->
                         <div class="form-group">
-                            <label for="name">University name:</label>
+                            <label for="name"><spring:message code="addUniversity.universityName" /></label>
                                 <input type="text" class="form-control username" id="name" placeholder="Name ..." name="name"></input>
                         </div>
                         <div class="form-group">
-                            <label for="description">Description:</label>
+                            <label for="description"><spring:message code="addUniversity.desc" /></label>
 
                                 <input type="text" class="form-control username" id="description" placeholder="Description..." name="description"></input>
 
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary btn-customized mt-4" >Add new university</button>
+                        <button type="submit" class="btn btn-primary btn-customized mt-4" ><spring:message code="addUniversity.button" /></button>
 
 
                     </form:form>

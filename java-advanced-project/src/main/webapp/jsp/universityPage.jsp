@@ -9,33 +9,37 @@
     <title>Cabinet</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script
+                  src="https://code.jquery.com/jquery-3.6.3.min.js"
+                  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+                  crossorigin="anonymous"></script>
 </head>
 <body class="security-app">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Project</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/marks?userName=${pageContext.request.userPrincipal.name}">My marks</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/universities">Universities</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="/login?logout">Log Out</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+              <a class="navbar-brand" href="#">Project</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/?lang=${param.lang}"><spring:message code="nav.home" /> <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="marks?userName=${pageContext.request.userPrincipal.name}&lang=${param.lang}"><spring:message code="nav.marks" /></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/universities?lang=${param.lang}"><spring:message code="nav.universities" /></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="/login?logout&lang=${lang}"><spring:message code="nav.logout" /></a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
 
@@ -45,10 +49,10 @@
         <div class="card card-header-actions mb-4">
             <div class="d-flex justify-content-between">
                 <div class="card-header">
-                    University Info
+                    <spring:message code="universityPage.infoText" />
                 </div>
                 <div class="card-header">
-                    <a href="/offers?id=${data.id}">Offers</a>
+                    <a href="/offers?id=${data.id}"><spring:message code="universityPage.offers" /></a>
                 </div>
             </div>
             <div class="card-body px-0">
@@ -56,7 +60,7 @@
                 <div class="d-flex align-items-center justify-content-between px-4">
                     <div class="d-flex align-items-center">
                         <div class="ms-4">
-                            <div class="small">Name</div>
+                            <div class="small"><spring:message code="universityPage.name" /></div>
                             <div class="text-xs text-muted">${data.name}</div>
                         </div>
                     </div>
@@ -66,7 +70,7 @@
                 <div class="d-flex align-items-center justify-content-between px-4">
                     <div class="d-flex align-items-center">
                         <div class="ms-4">
-                            <div class="small">Description</div>
+                            <div class="small"><spring:message code="universityPage.desc" /></div>
                             <div class="text-xs text-muted">${data.description}</div>
                         </div>
                     </div>
@@ -76,7 +80,7 @@
                 <div class="d-flex align-items-center justify-content-between px-4">
                     <div class="d-flex align-items-center">
                         <div class="ms-4">
-                            <div class="small">Count of students</div>
+                            <div class="small"><spring:message code="universityPage.counter" /></div>
                             <div class="text-xs text-muted">${data.countOfStudents}</div>
                         </div>
                     </div>
@@ -86,8 +90,8 @@
         <!-- Billing history card-->
         <div class="card mb-4">
         <div class="d-flex justify-content-between">
-            <div class="card-header">Available Faculties</div>
-            <div class="card-header"><a href="/addFaculty?universityId=${data.id}">Add faculties</a></div>
+            <div class="card-header"><spring:message code="universityPage.availFaculties" /></div>
+            <div class="card-header"><a href="/addFaculty?universityId=${data.id}&lang=${param.lang}"><spring:message code="universityPage.addFaculty" /></a></div>
         </div>
             <div class="card-body p-0">
                 <!-- Billing history table-->
@@ -96,8 +100,8 @@
                         <thead>
                             <tr>
                                 <th class="border-gray-200" scope="col">№</th>
-                                <th class="border-gray-200" scope="col">Name</th>
-                                <th class="border-gray-200" scope="col">Minimal Points</th>
+                                <th class="border-gray-200" scope="col"><spring:message code="universityPage.facultyName" /></th>
+                                <th class="border-gray-200" scope="col"><spring:message code="universityPage.minPoints" /></th>
                                 <th class="border-gray-200" scope="col"></th>
                             </tr>
                         </thead>
@@ -107,12 +111,12 @@
                                 <td>${currentFaculty.id}</td>
                                 <td>${currentFaculty.name}</td>
                                 <td>${currentFaculty.minimalPoints}</td>
-                                <td><a href="/sendMarks?email=${pageContext.request.userPrincipal.name}&universityId=${data.id}&facultyId=${currentFaculty.id}&minPoints=${currentFaculty.minimalPoints}">Send Marks</a></td>
+                                <td><a href="/sendMarks?email=${pageContext.request.userPrincipal.name}&facultyId=${currentFaculty.id}&lang=${param.lang}"><spring:message code="universityPage.sendMarks" /></a></td>
                                 <c:if test="${param.error == true}">
-                                    <div class="alert-danger">Your summary mark is less than required!</div>
+                                    <div class="alert-danger"><spring:message code="universityPage.error" /></div>
                                 </c:if>
                                 <c:if test="${param.alreadyExists == true}">
-                                    <div class="alert-danger">Your offer to be applied to this university has been already sent!</div>
+                                    <div class="alert-danger"><spring:message code="universityPage.alreadyExists" /></div>
                                 </c:if>
                             </tr>
                             </c:forEach>

@@ -14,36 +14,65 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+
+    <script
+                  src="https://code.jquery.com/jquery-3.6.3.min.js"
+                  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+                  crossorigin="anonymous"></script>
+
+        <script type="text/javascript">
+            	$(document).ready(function() {
+            		var selItem = localStorage.getItem("locales");
+            		$('#locales').val(selItem ? selItem : 'en');
+            		$("#locales").change(function() {
+            			var selectedOption = $('#locales').val();
+            			if (selectedOption) {
+            				window.location.replace('?lang=' + selectedOption);
+            				localStorage.setItem("locales", selectedOption);
+            			}
+            		});
+            	});
+            </script>
     <title>Register mark</title>
 
   </head>
   <body class="h-100">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Project</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/marks">My marks <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/universities">Universities</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="/login?logout">Log Out</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+          <a class="navbar-brand" href="#">Project</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="/?lang=${param.lang}"><spring:message code="nav.home" /> <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="marks?userName=${pageContext.request.userPrincipal.name}&lang=${param.lang}"><spring:message code="nav.marks" /></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/universities?lang=${param.lang}"><spring:message code="nav.universities" /></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="/login?logout&lang=${lang}"><spring:message code="nav.logout" /></a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <fieldset>
+                <label><spring:message code="login.choose_language" /></label>
+                <select id="locales">
+                    <option value="en"><spring:message code='login.english'/></option>
+                    <option value="ua"><spring:message code='login.ukrainian'/></option>
+                </select>
+            </fieldset>
+          </div>
+        </nav>
 
 
 
@@ -52,29 +81,30 @@
               <div class="col-10 col-md-8 col-lg-6">
                   <!-- Form -->
                   <form:form modelAttribute="markForm" class="form-example" action="/save" method="GET">
-                        <h1>Please, enter information about your mark!</h1>
+                        <h1><spring:message code="registerMark.greeting" /></h1>
                         <!-- Input fields -->
                         <div class="form-group">
-                            <label for="subjectName">Subject name: </label>
+                            <label for="subjectName"><spring:message code="registerMark.subject" /></label>
                              <spring:bind path="name">
                                 <form:input path="name" type="text" class="form-control username" id="subjectName" placeholder="Subject Name..." name="subjectName"></form:input>
                              </spring:bind>
                         </div>
                         <div class="form-group">
-                            <label for="points">Mark:</label>
+                            <label for="points"><spring:message code="registerMark.mark" /></label>
                             <spring:bind path="points">
                                 <form:input path="points" type="text" class="form-control username" id="points" placeholder="Your points..." name="points"></form:input>
                             </spring:bind>
                         </div>
 
                         <c:if test="${param.error == true}">
-                            <div class="alert-danger">Your mark mus`nt be more than 200 or less than 0!</div>
+                            <div class="alert-danger"><spring:message code="registerMark.error" /></div>
                         </c:if>
 
                         <input type="hidden" value="${pageContext.request.userPrincipal.name}" id="userName" name="userName"></input>
+                        <input type="hidden" value="${param.lang}" id="lang" name="lang"></input>
 
 
-                        <button type="submit" class="btn btn-primary btn-customized mt-4">Save</button>
+                        <button type="submit" class="btn btn-primary btn-customized mt-4"><spring:message code="registerMark.button" /></button>
 
 
                     </form:form>
