@@ -14,25 +14,6 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-
-    <script
-                  src="https://code.jquery.com/jquery-3.6.3.min.js"
-                  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-                  crossorigin="anonymous"></script>
-
-        <script type="text/javascript">
-            	$(document).ready(function() {
-            		var selItem = localStorage.getItem("locales");
-            		$('#locales').val(selItem ? selItem : 'en');
-            		$("#locales").change(function() {
-            			var selectedOption = $('#locales').val();
-            			if (selectedOption) {
-            				window.location.replace('?lang=' + selectedOption);
-            				localStorage.setItem("locales", selectedOption);
-            			}
-            		});
-            	});
-            </script>
     <title>Register mark</title>
 
   </head>
@@ -61,16 +42,6 @@
                 <a class="nav-link disabled" href="/login?logout&lang=${lang}"><spring:message code="nav.logout" /></a>
               </li>
             </ul>
-          </div>
-
-          <div>
-            <fieldset>
-                <label><spring:message code="login.choose_language" /></label>
-                <select id="locales">
-                    <option value="en"><spring:message code='login.english'/></option>
-                    <option value="ua"><spring:message code='login.ukrainian'/></option>
-                </select>
-            </fieldset>
           </div>
         </nav>
 
