@@ -78,7 +78,7 @@
 
                 <div class="d-flex justify-content-center align-items-center">
                   <div class="round-image">
-                    <img src="data:image/jpg;base64, <sec:authentication property='principal.encodedImage' />" alt="avatar" class="rounded-circle" width="97">
+                    <img src="data:image/jpg;base64, <sec:authentication property='principal.encodedImage' />" alt="avatar" class="rounded-circle" width="125">
                   </div>
                 </div>
 

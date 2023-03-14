@@ -14,7 +14,7 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column
+    @Column(name = "_name")
     private String name;
 
     @Column
@@ -24,7 +24,7 @@ public class Subject {
     private Set<Faculty> faculties = new HashSet<Faculty>();
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userId;
 
 

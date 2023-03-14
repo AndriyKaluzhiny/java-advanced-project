@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import ua.lviv.lgs.common.UserDTOHelper;
 import ua.lviv.lgs.common.UserService;
 import ua.lviv.lgs.dao.UserRepository;
 import ua.lviv.lgs.domain.User;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Optional;
 
 @Controller
@@ -46,15 +48,15 @@ public class UserController {
         return modelAndView;
     }
 
-//    @RequestMapping(value = "/sign-in_processing", method = RequestMethod.POST)
-//    public String registration(@RequestParam("email") String email,
-//                               @RequestParam("firstName") String firstName,
-//                               @RequestParam("lastName") String lastName,
-//                               @RequestParam("password") String password,
-//                               @RequestParam("file") MultipartFile file,
-//                               @RequestParam("lang") String lang) throws IOException {
-//        userService.save(email, firstName, lastName, password, file);
-//
-//        return "redirect:/?lang=" + lang;
-//    }
+    @RequestMapping(value = "/sign-in_processing", method = RequestMethod.POST)
+    public String registration(@RequestParam("email") String email,
+                               @RequestParam("firstName") String firstName,
+                               @RequestParam("lastName") String lastName,
+                               @RequestParam("password") String password,
+                               @RequestParam("file") MultipartFile file,
+                               @RequestParam("lang") String lang) throws IOException {
+        userService.save(UserDTOHelper.createUser(firstName, lastName, email, password, file));
+
+        return "redirect:/?lang=" + lang;
+    }
 }

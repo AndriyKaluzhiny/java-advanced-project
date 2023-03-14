@@ -107,7 +107,7 @@ public class MarksController {
             return modelAndView;
         }
 
-        if (offerRepository.findByUserNameAndUniversityName(user.getEmail(), univercity.getName()).isPresent()) {
+        if (offerRepository.findByEmailAndUniversityName(email, univercity.getName()).isPresent()) {
             modelAndView.addObject("alreadyExists", true);
             modelAndView.addObject("lang", lang);
             modelAndView.setViewName("redirect:/universityPage?id=" + univercity.getId());
@@ -121,7 +121,7 @@ public class MarksController {
 
         offerRepository.save(offer);
 
-        modelAndView.setViewName("redirect:/universityPage?id=" + univercity.getId());
+        modelAndView.setViewName("redirect:/universityPage?id=" + univercity.getId() + "&lang=" + lang);
 
         return modelAndView;
     }

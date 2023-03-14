@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OfferRepository extends CrudRepository<Offer, Integer> {
-    Optional<Offer> findByUserNameAndUniversityName(String userName, String universityName);
+    Optional<Offer> findByEmailAndUniversityName(String email, String universityName);
     List<Offer> findByUniversityName(String universityName);
 
 }

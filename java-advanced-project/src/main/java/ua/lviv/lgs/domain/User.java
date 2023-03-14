@@ -1,5 +1,7 @@
 package ua.lviv.lgs.domain;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.Set;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity
-@Table
+@Table(name = "_user")
 public class User {
 
     @Id
@@ -80,6 +82,14 @@ public class User {
     }
 
     public User() {
+    }
+
+    public User(String firstName, String lastName, String email, String password, String encodedImage) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.encodedImage = encodedImage;
     }
 
     public Integer getId() {

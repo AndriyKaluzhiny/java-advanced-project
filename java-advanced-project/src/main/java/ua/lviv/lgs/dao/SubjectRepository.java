@@ -11,7 +11,7 @@ import java.util.List;
 public interface SubjectRepository extends CrudRepository<Subject, Integer> {
     List<Subject> findAll();
 
-    @Query(value = "select * from subject s where s.user=?", nativeQuery = true)
+    @Query(value = "select * from subject s where s.user_id=?", nativeQuery = true)
     List<Subject> findAllByUserId(Integer id);
 
 

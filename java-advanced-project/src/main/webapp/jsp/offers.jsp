@@ -40,9 +40,9 @@
     <div class="ml-3">
         <h2 class="mb-1"><spring:message code="offer.greeting" />, ${pageContext.request.userPrincipal.name}! <spring:message code="offer.title" />: </h2>
     </div>
-    <div class="d-flex">
+    <div class="d-flex flex-wrap">
            <c:forEach items="${offers}" var="currentOffer">
-              <div class="card mr-2" style="width: 18rem;">
+              <div class="card mr-2 mb-2" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">${currentOffer.userName}</h5>
                   <h1 class="card-text"><spring:message code="offer.summary" />: ${currentOffer.summary}</h1>

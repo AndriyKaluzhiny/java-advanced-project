@@ -37,7 +37,6 @@ public class UniversityService {
     }
 
     public Univercity findById(Integer id) {
-
         logger.info("Find university with id=" + id);
         return univercityRepository.findById(id).get();
     }

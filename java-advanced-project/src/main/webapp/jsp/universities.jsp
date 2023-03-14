@@ -73,7 +73,7 @@
 
     <div class="d-flex flex-wrap">
        <c:forEach items="${universities}" var="currentUniversity">
-          <div class="card mr-2" style="width: 18rem;">
+          <div class="card mr-2 mb-2" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">${currentUniversity.name}</h5>
               <h6 class="card-subtitle mb-2 text-muted">${currentUniversity.rating}</h6>

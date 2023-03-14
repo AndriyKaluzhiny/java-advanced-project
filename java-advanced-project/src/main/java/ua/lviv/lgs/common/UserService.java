@@ -31,29 +31,8 @@ public class UserService {
     Logger logger = LoggerFactory.getLogger(UserService.class);
 
 
-    public void save(@RequestParam("email") String email,
-                     @RequestParam("firstName") String firstName,
-                     @RequestParam("lastName") String lastName,
-                     @RequestParam("password") String password,
-                     @RequestParam("file")MultipartFile file) throws IOException {
+    public void save(User user) throws IOException {
         logger.info("Save user to database");
-        userRepository.save(UserDTOHelper.createUser(firstName, lastName, email, bcryptpasswordEncoder.encode(password), file));
-    }
-
-    public Integer findIdByUserName(@RequestParam("userName") String name) {
-        Optional<User> userOptional = userRepository.findByEmail(name);
-        User user = userOptional.get();
-
-        logger.info("get userId with username=" + name);
-
-        return user.getId();
-    }
-
-    public List<Subject> getAll() {
-        List<Subject> subjects = new ArrayList<>(subjectRepository.findAll());
-
-        logger.info("Get all subjects...");
-
-        return subjects;
+        userRepository.save(user);
     }
 }

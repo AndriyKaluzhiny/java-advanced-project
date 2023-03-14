@@ -29,7 +29,7 @@ public class Univercity {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId", referencedColumnName = "id")
+    @JoinColumn(name = "userFK", referencedColumnName = "id")
     private User user;
 
 

@@ -44,9 +44,9 @@
         <h2 class="mb-1"><spring:message code="marks.greeting" /></h2>
         <h6><spring:message code="marks.addMarkText" /> <a href="/registerMark?username=${pageContext.request.userPrincipal.name}&lang=${param.lang}"><spring:message code="marks.addMarkLink" /></a></h6>
     </div>
-    <div class="d-flex">
+    <div class="d-flex flex-wrap">
            <c:forEach items="${marks}" var="currentSubject">
-              <div class="card mr-2" style="width: 18rem;">
+              <div class="card mr-2 mb-2" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">${currentSubject.name}</h5>
                   <h1 class="card-title">${currentSubject.points}</h1>
