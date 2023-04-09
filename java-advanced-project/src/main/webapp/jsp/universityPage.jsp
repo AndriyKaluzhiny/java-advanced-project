@@ -85,6 +85,21 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+                 <!-- University info card 4 -->
+                    <div class="d-flex align-items-center justify-content-between px-4">
+                        <div class="d-flex align-items-center">
+                            <div class="ms-4">
+                                <div class="small"><spring:message code="universityPage.rating" /></div>
+                                <div class="text-xs text-muted">${data.rating}</div>
+                            </div>
+                        </div>
+
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <a href="/increaseRating?id=${data.id}"><button type="button" class="btn btn-secondary"><spring:message code="universityPage.increaseRating" /></button></a>
+                          <a href="/decreaseRating?id=${data.id}"><button type="button" class="btn btn-secondary"><spring:message code="universityPage.decreaseRating" /></button></a>
+                        </div>
+                    </div>
             </div>
         </div>
         <!-- Billing history card-->
